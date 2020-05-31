@@ -1,0 +1,10 @@
+eclipse.preferences.version=1
+encoding//openapi_server/com/h21lab/TS29573_N32_Handshake/handler/ie_location.py=utf-8
+encoding//openapi_server/com/h21lab/TS29573_N32_Handshake/handler/invalid_param.py=utf-8
+encoding//openapi_server/com/h21lab/TS29573_N32_Handshake/handler/sec_negotiate_req_data.py=utf-8
+encoding//openapi_server/com/h21lab/TS29573_N32_Handshake/handler/sec_negotiate_rsp_data.py=utf-8
+encoding//openapi_server/test/test_complete_stored_search_document_controller.py=utf-8
+encoding//openapi_server/test/test_nf_instances_store_controller.py=utf-8
+encoding//openapi_server/test/test_parameter_exchange_controller.py=utf-8
+encoding//openapi_server/test/test_security_capability_negotiation_controller.py=utf-8
+encoding//openapi_server/test/test_stored_search_document_controller.py=utf-8

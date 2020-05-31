@@ -1,0 +1,3 @@
+[submodule "5GC_code_generator/5GC_APIs"]
+	path = 5GC_code_generator/5GC_APIs
+	url = https://github.com/jdegre/5GC_APIs

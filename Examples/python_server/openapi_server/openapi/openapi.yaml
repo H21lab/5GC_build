@@ -1,0 +1,719 @@
+openapi: 3.0.0
+info:
+  description: |
+    N32-c Handshake Service.
+     © 2020, 3GPP Organizational Partners (ARIB, ATIS, CCSA, ETSI, TSDSI, TTA, TTC).
+     All rights reserved.
+  title: N32 Handshake API
+  version: 1.1.0.alpha-3
+externalDocs:
+  description: 3GPP TS 29.573 V16.2.0; 5G System; Public Land Mobile Network (PLMN)
+    Interconnection; Stage 3
+  url: http://www.3gpp.org/ftp/Specs/archive/29_series/29.573/
+servers:
+- url: '{apiRoot}/n32c-handshake/v1'
+  variables:
+    apiRoot:
+      default: https://example.com
+      description: apiRoot as defined in clause 4.4 of 3GPP TS 29.501.
+paths:
+  /exchange-capability:
+    post:
+      operationId: post_exchange_capability
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SecNegotiateReqData'
+        description: Custom operation for security capability negotiation
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SecNegotiateRspData'
+          description: OK (Successful negitiation of security capabilities)
+        "400":
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Bad request
+        "411":
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Length Required
+        "413":
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Payload Too Large
+        "415":
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unsupported Media Type
+        "429":
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Too Many Requests
+        "500":
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+        "503":
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Service Unavailable
+        default:
+          description: Unexpected error
+      summary: Security Capability Negotiation
+      tags:
+      - Security Capability Negotiation
+      x-openapi-router-controller: openapi_server.controllers.security_capability_negotiation_controller
+  /exchange-params:
+    post:
+      operationId: post_exchange_params
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SecParamExchReqData'
+        description: Custom operation for parameter exchange
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SecParamExchRspData'
+          description: OK (Successful exchange of parameters)
+        "400":
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Bad request
+        "411":
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Length Required
+        "413":
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Payload Too Large
+        "415":
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unsupported Media Type
+        "429":
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Too Many Requests
+        "500":
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+        "503":
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Service Unavailable
+        default:
+          description: Unexpected error
+      summary: Parameter Exchange
+      tags:
+      - Parameter Exchange
+      x-openapi-router-controller: openapi_server.controllers.parameter_exchange_controller
+  /n32f-error:
+    post:
+      operationId: post_n32f_error
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/N32fErrorInfo'
+        description: Custom operation for n32-f error reporting procedure
+        required: true
+      responses:
+        "204":
+          description: successful error reporting
+        "400":
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Bad request
+        "411":
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Length Required
+        "413":
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Payload Too Large
+        "415":
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unsupported Media Type
+        "429":
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Too Many Requests
+        "500":
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+        "503":
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Service Unavailable
+        default:
+          description: Unexpected error
+      summary: N32-f Error Reporting Procedure
+      tags:
+      - N32-f Error Report
+      x-openapi-router-controller: openapi_server.controllers.n32_f_error_report_controller
+  /n32f-terminate:
+    post:
+      operationId: post_n32f_terminate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/N32fContextInfo'
+        description: Custom operation for n32-f context termination
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/N32fContextInfo'
+          description: OK (Successful exchange of parameters)
+        "400":
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Bad request
+        "411":
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Length Required
+        "413":
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Payload Too Large
+        "415":
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Unsupported Media Type
+        "429":
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Too Many Requests
+        "500":
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Internal Server Error
+        "503":
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ProblemDetails'
+          description: Service Unavailable
+        default:
+          description: Unexpected error
+      summary: N32-f Context Terminate
+      tags:
+      - N32-f Context Terminate
+      x-openapi-router-controller: openapi_server.controllers.n32_f_context_terminate_controller
+components:
+  schemas:
+    SecurityCapability:
+      anyOf:
+      - enum:
+        - TLS
+        - PRINS
+        type: string
+      - type: string
+    ApiSignature:
+      oneOf:
+      - $ref: '#/components/schemas/Uri'
+      - $ref: '#/components/schemas/CallbackName'
+    HttpMethod:
+      anyOf:
+      - enum:
+        - GET
+        - PUT
+        - POST
+        - DELETE
+        - PATCH
+        - HEAD
+        - OPTIONS
+        - CONNECT
+        - TRACE
+        type: string
+      - type: string
+    IeType:
+      anyOf:
+      - enum:
+        - UEID
+        - LOCATION
+        - KEY_MATERIAL
+        - AUTHENTICATION_MATERIAL
+        - AUTHORIZATION_TOKEN
+        - OTHER
+        - NONSENSITIVE
+        type: string
+      - type: string
+    IeLocation:
+      anyOf:
+      - enum:
+        - URI_PARAM
+        - HEADER
+        - BODY
+        - MULTIPART_BINARY
+        type: string
+      - type: string
+    IeInfo:
+      example:
+        rspIe: rspIe
+        reqIe: reqIe
+        isModifiable: true
+      properties:
+        ieLoc:
+          $ref: '#/components/schemas/IeLocation'
+        ieType:
+          $ref: '#/components/schemas/IeType'
+        reqIe:
+          type: string
+        rspIe:
+          type: string
+        isModifiable:
+          type: boolean
+      required:
+      - ieLoc
+      - ieType
+      type: object
+    ApiIeMapping:
+      example:
+        IeList:
+        - rspIe: rspIe
+          reqIe: reqIe
+          isModifiable: true
+        - rspIe: rspIe
+          reqIe: reqIe
+          isModifiable: true
+      properties:
+        apiSignature:
+          $ref: '#/components/schemas/ApiSignature'
+        apiMethod:
+          $ref: '#/components/schemas/HttpMethod'
+        IeList:
+          items:
+            $ref: '#/components/schemas/IeInfo'
+          minItems: 1
+          type: array
+      required:
+      - IeList
+      - apiMethod
+      - apiSignature
+      type: object
+    ProtectionPolicy:
+      example:
+        apiIeMappingList:
+        - IeList:
+          - rspIe: rspIe
+            reqIe: reqIe
+            isModifiable: true
+          - rspIe: rspIe
+            reqIe: reqIe
+            isModifiable: true
+        - IeList:
+          - rspIe: rspIe
+            reqIe: reqIe
+            isModifiable: true
+          - rspIe: rspIe
+            reqIe: reqIe
+            isModifiable: true
+        dataTypeEncPolicy:
+        - null
+        - null
+      properties:
+        apiIeMappingList:
+          items:
+            $ref: '#/components/schemas/ApiIeMapping'
+          minItems: 1
+          type: array
+        dataTypeEncPolicy:
+          items:
+            $ref: '#/components/schemas/IeType'
+          minItems: 1
+          type: array
+      required:
+      - apiIeMappingList
+      type: object
+    SecNegotiateReqData:
+      example:
+        sender: sender
+        supportedSecCapabilityList:
+        - null
+        - null
+      properties:
+        sender:
+          description: Fully Qualified Domain Name
+          type: string
+        supportedSecCapabilityList:
+          items:
+            $ref: '#/components/schemas/SecurityCapability'
+          minItems: 1
+          type: array
+      required:
+      - sender
+      - supportedSecCapabilityList
+      type: object
+    SecNegotiateRspData:
+      example:
+        sender: sender
+      properties:
+        sender:
+          description: Fully Qualified Domain Name
+          type: string
+        selectedSecCapability:
+          $ref: '#/components/schemas/SecurityCapability'
+      required:
+      - selectedSecCapability
+      - sender
+      type: object
+    SecParamExchReqData:
+      example:
+        n32fContextId: n32fContextId
+        sender: sender
+        jwsCipherSuiteList:
+        - jwsCipherSuiteList
+        - jwsCipherSuiteList
+        protectionPolicyInfo:
+          apiIeMappingList:
+          - IeList:
+            - rspIe: rspIe
+              reqIe: reqIe
+              isModifiable: true
+            - rspIe: rspIe
+              reqIe: reqIe
+              isModifiable: true
+          - IeList:
+            - rspIe: rspIe
+              reqIe: reqIe
+              isModifiable: true
+            - rspIe: rspIe
+              reqIe: reqIe
+              isModifiable: true
+          dataTypeEncPolicy:
+          - null
+          - null
+        jweCipherSuiteList:
+        - jweCipherSuiteList
+        - jweCipherSuiteList
+        ipxProviderSecInfoList:
+        - rawPublicKeyList:
+          - rawPublicKeyList
+          - rawPublicKeyList
+          ipxProviderId: ipxProviderId
+          certificateList:
+          - certificateList
+          - certificateList
+        - rawPublicKeyList:
+          - rawPublicKeyList
+          - rawPublicKeyList
+          ipxProviderId: ipxProviderId
+          certificateList:
+          - certificateList
+          - certificateList
+      properties:
+        n32fContextId:
+          pattern: ^[A-Fa-f0-9]{16}$
+          type: string
+        jweCipherSuiteList:
+          items:
+            type: string
+          minItems: 1
+          type: array
+        jwsCipherSuiteList:
+          items:
+            type: string
+          minItems: 1
+          type: array
+        protectionPolicyInfo:
+          $ref: '#/components/schemas/ProtectionPolicy'
+        ipxProviderSecInfoList:
+          items:
+            $ref: '#/components/schemas/IpxProviderSecInfo'
+          minItems: 1
+          type: array
+        sender:
+          description: Fully Qualified Domain Name
+          type: string
+      required:
+      - n32fContextId
+      type: object
+    SecParamExchRspData:
+      example:
+        n32fContextId: n32fContextId
+        selectedJweCipherSuite: selectedJweCipherSuite
+        sender: sender
+        selProtectionPolicyInfo:
+          apiIeMappingList:
+          - IeList:
+            - rspIe: rspIe
+              reqIe: reqIe
+              isModifiable: true
+            - rspIe: rspIe
+              reqIe: reqIe
+              isModifiable: true
+          - IeList:
+            - rspIe: rspIe
+              reqIe: reqIe
+              isModifiable: true
+            - rspIe: rspIe
+              reqIe: reqIe
+              isModifiable: true
+          dataTypeEncPolicy:
+          - null
+          - null
+        ipxProviderSecInfoList:
+        - rawPublicKeyList:
+          - rawPublicKeyList
+          - rawPublicKeyList
+          ipxProviderId: ipxProviderId
+          certificateList:
+          - certificateList
+          - certificateList
+        - rawPublicKeyList:
+          - rawPublicKeyList
+          - rawPublicKeyList
+          ipxProviderId: ipxProviderId
+          certificateList:
+          - certificateList
+          - certificateList
+        selectedJwsCipherSuite: selectedJwsCipherSuite
+      properties:
+        n32fContextId:
+          pattern: ^[A-Fa-f0-9]{16}$
+          type: string
+        selectedJweCipherSuite:
+          type: string
+        selectedJwsCipherSuite:
+          type: string
+        selProtectionPolicyInfo:
+          $ref: '#/components/schemas/ProtectionPolicy'
+        ipxProviderSecInfoList:
+          items:
+            $ref: '#/components/schemas/IpxProviderSecInfo'
+          minItems: 1
+          type: array
+        sender:
+          description: Fully Qualified Domain Name
+          type: string
+      required:
+      - n32fContextId
+      type: object
+    N32fContextInfo:
+      example:
+        n32fContextId: n32fContextId
+      properties:
+        n32fContextId:
+          pattern: ^[A-Fa-f0-9]{16}$
+          type: string
+      required:
+      - n32fContextId
+      type: object
+    CallbackName:
+      properties:
+        callbackType:
+          type: string
+      required:
+      - callbackType
+      type: object
+    N32fErrorInfo:
+      example:
+        n32fMessageId: n32fMessageId
+        errorDetailsList:
+        - attribute: attribute
+        - attribute: attribute
+        failedModificationList:
+        - ipxId: ipxId
+        - ipxId: ipxId
+      properties:
+        n32fMessageId:
+          type: string
+        n32fErrorType:
+          $ref: '#/components/schemas/N32fErrorType'
+        failedModificationList:
+          items:
+            $ref: '#/components/schemas/FailedModificationInfo'
+          minItems: 1
+          type: array
+        errorDetailsList:
+          items:
+            $ref: '#/components/schemas/N32fErrorDetail'
+          minItems: 1
+          type: array
+      required:
+      - n32fErrorType
+      - n32fMessageId
+      type: object
+    FailedModificationInfo:
+      example:
+        ipxId: ipxId
+      properties:
+        ipxId:
+          description: Fully Qualified Domain Name
+          type: string
+        n32fErrorType:
+          $ref: '#/components/schemas/N32fErrorType'
+      required:
+      - ipxId
+      - n32fErrorType
+      type: object
+    N32fErrorDetail:
+      example:
+        attribute: attribute
+      properties:
+        attribute:
+          type: string
+        msgReconstructFailReason:
+          $ref: '#/components/schemas/FailureReason'
+      required:
+      - attribute
+      - msgReconstructFailReason
+      type: object
+    IpxProviderSecInfo:
+      example:
+        rawPublicKeyList:
+        - rawPublicKeyList
+        - rawPublicKeyList
+        ipxProviderId: ipxProviderId
+        certificateList:
+        - certificateList
+        - certificateList
+      properties:
+        ipxProviderId:
+          description: Fully Qualified Domain Name
+          type: string
+        rawPublicKeyList:
+          items:
+            type: string
+          minItems: 1
+          type: array
+        certificateList:
+          items:
+            type: string
+          minItems: 1
+          type: array
+      required:
+      - ipxProviderId
+      type: object
+    N32fErrorType:
+      anyOf:
+      - enum:
+        - INTEGRITY_CHECK_FAILED
+        - INTEGRITY_CHECK_ON_MODIFICATIONS_FAILED
+        - MODIFICATIONS_INSTRUCTIONS_FAILED
+        - DECIPHERING_FAILED
+        - MESSAGE_RECONSTRUCTION_FAILED
+        type: string
+      - type: string
+    FailureReason:
+      anyOf:
+      - enum:
+        - INVALID_JSON_POINTER
+        - INVALID_INDEX_TO_ENCRYPTED_BLOCK
+        - INVALID_HTTP_HEADER
+        type: string
+      - type: string
+    ProblemDetails:
+      properties:
+        type:
+          type: string
+        title:
+          type: string
+        status:
+          type: integer
+        detail:
+          type: string
+        instance:
+          type: string
+        cause:
+          type: string
+        invalidParams:
+          items:
+            $ref: '#/components/schemas/InvalidParam'
+          minItems: 1
+          type: array
+        supportedFeatures:
+          pattern: ^[A-Fa-f0-9]*$
+          type: string
+      type: object
+    Uri:
+      type: string
+    InvalidParam:
+      properties:
+        param:
+          type: string
+        reason:
+          type: string
+      required:
+      - param
+      type: object
+    SupportedFeatures:
+      pattern: ^[A-Fa-f0-9]*$
+      type: string
+    Fqdn:
+      description: Fully Qualified Domain Name
+      type: string
